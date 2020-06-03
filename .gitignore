@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+# IntelliJ project files
+.idea
+*.iml
+
+# ASP.NET Core project file
+**/bin
+**/obj

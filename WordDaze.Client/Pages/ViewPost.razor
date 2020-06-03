@@ -1,0 +1,36 @@
+@page "/viewpost/{postId}"
+@using WordDaze.Shared
+@layout MainLayout
+@inject HttpClient Http
+
+<WdHeader Heading=@BlogPost.Title Author=@BlogPost.Author PostedDate=@BlogPost.Posted></WdHeader>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                @BlogPost.Post
+            </div>
+        </div>
+    </div>
+</article>
+
+@code
+{
+
+    [Parameter] 
+    public string PostId { get; set; }
+
+    public BlogPost BlogPost { get; set; } = new BlogPost();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadBlogPost();
+    }
+
+    private async Task LoadBlogPost() 
+    {
+        BlogPost = await Http.GetFromJsonAsync<BlogPost>(Urls.Server + Urls.BlogPost.Replace("{id}", PostId));
+    }
+}
